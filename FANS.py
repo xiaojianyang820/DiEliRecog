@@ -174,30 +174,6 @@ if __name__ == '__main__':
 
     print(f'\n训练集为500个样本点，分类准确率为：{accu*100:.2f}%')
     '''
-    '''
-    print('FANS算法在DOTA2胜负判定上测试')
-    data = pd.read_csv('data/dota2/dota2Train.csv', header=None)
-    X = data.iloc[:, 1:]
-    Y = data.iloc[:, 0]
-    Y = Y.replace(-1, 0)
-    X = X.values.astype(np.float32)
-    Y = Y.values
-    population = set(range(X.shape[0]))
-    train_sample_num = 1000
-    test_sample_num = 20000
-    train_index = np.array(random.sample(population, train_sample_num))
-    population -= set(train_index)
-    test_index = np.array(random.sample(population, test_sample_num))
-    X_train, X_test = X[train_index], X[test_index]
-    Y_train, Y_test = Y[train_index], Y[test_index]
-
-    fans_model = FANS(train_data=X_train, train_labels=Y_train, test_data=X_test)
-    Y_test_pred = fans_model.main()
-    Y_test_pred = [1 if i > 0.5 else 0 for i in Y_test_pred]
-    accu = np.mean([int(i == j) for i, j in zip(Y_test_pred, Y_test)])
-
-    print(f'\n训练集为{train_sample_num}个样本点，分类准确率为：{accu * 100:.2f}%')
-    '''
     print('FANS算法在垃圾邮件检测上测试')
     data = pd.read_csv('data/spam_email/spambase.csv', header=None)
     X = data.iloc[:, :-1].values
